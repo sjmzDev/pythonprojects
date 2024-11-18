@@ -40,5 +40,3 @@ while primer_eleccion != 3:
         else:
                 print('Error al momento de insertar.')
                 
-
-yankenpo()
