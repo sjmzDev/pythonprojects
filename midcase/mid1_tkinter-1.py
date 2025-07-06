@@ -25,7 +25,7 @@ def escribir(archivo, datos):
     with open(archivo, 'w') as f:
         for fila in datos:
             f.write(','.join(fila) + '\n')
-
+#hola
 # Agregar nueva línea
 def agregar_linea(archivo, datos):
     with open(archivo, 'a') as f:
