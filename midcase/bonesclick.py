@@ -95,9 +95,9 @@ class AutoClickerApp:
             with open(CONFIG_FILE, "w") as f:
                 f.write(f"cps={self.cps_entry.get()}\n")
                 f.write(f"tecla={self.key_entry.get()}\n")
-            print("[✓] Configuración guardada.")
+            print("[✅ ] Configuración guardada.")
         except Exception as e:
-            print(f"[!] Error al guardar configuración: {e}")
+            print(f"[❗] Error al guardar configuración: {e}")
 
     def load_config(self):
         if os.path.exists(CONFIG_FILE):
@@ -108,9 +108,9 @@ class AutoClickerApp:
                             self.cps_entry.insert(0, line.strip().split("=")[1])
                         elif line.startswith("tecla="):
                             self.key_entry.insert(0, line.strip().split("=")[1])
-                print("[✓] Configuración cargada.")
+                print("[✅ ] Configuración cargada.")
             except:
-                print("[!] No se pudo cargar configuración.")
+                print("[❗] No se pudo cargar configuración.")
         else:
             self.cps_entry.insert(0, "10")
             self.key_entry.insert(0, "f6")
@@ -118,10 +118,10 @@ class AutoClickerApp:
     def start_threads(self):
         threading.Thread(target=click_loop, args=(self.get_cps,), daemon=True).start()
         toggle_listener(self.get_key)
-        print("[✓] AutoClicker activo en segundo plano.")
+        print("[✅ ] Comenzando..")
 
     def on_close(self):
-        print("[*] Cerrando autoclicker...")
+        print("[✅ ] Cerrando autoclicker...")
         limpiar_rastros("autoclicker.exe")
         self.master.destroy()
 
