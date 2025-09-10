@@ -2,7 +2,6 @@ import tkinter as tk
 import threading
 import time
 import os
-import getpass
 from pynput import keyboard
 from pynput.mouse import Controller, Button
 
@@ -63,7 +62,7 @@ def toggle_listener(get_key):
 class AutoClickerApp:
     def __init__(self, master):
         self.master = master
-        self.master.title("AutoClicker con Configuración")
+        self.master.title("BonesClicker 111")
 
         tk.Label(master, text="Clicks por segundo (CPS):").pack()
         self.cps_entry = tk.Entry(master)
@@ -95,7 +94,7 @@ class AutoClickerApp:
             with open(CONFIG_FILE, "w") as f:
                 f.write(f"cps={self.cps_entry.get()}\n")
                 f.write(f"tecla={self.key_entry.get()}\n")
-            print("[✅ ] Configuración guardada.")
+            print("[ ✅ ] Configuración guardada.")
         except Exception as e:
             print(f"[❗] Error al guardar configuración: {e}")
 
@@ -108,7 +107,7 @@ class AutoClickerApp:
                             self.cps_entry.insert(0, line.strip().split("=")[1])
                         elif line.startswith("tecla="):
                             self.key_entry.insert(0, line.strip().split("=")[1])
-                print("[✅ ] Configuración cargada.")
+                print("[ ✅ ] Configuración cargada.")
             except:
                 print("[❗] No se pudo cargar configuración.")
         else:
@@ -118,14 +117,18 @@ class AutoClickerApp:
     def start_threads(self):
         threading.Thread(target=click_loop, args=(self.get_cps,), daemon=True).start()
         toggle_listener(self.get_key)
-        print("[✅ ] Comenzando..")
+        print("[ ✅ ] Comenzando..")
 
     def on_close(self):
-        print("[✅ ] Cerrando autoclicker...")
+        print("[ ✅ ] Cerrando autoclicker...")
+        if os.path.exists(CONFIG_FILE):
+            os.remove(CONFIG_FILE)
+        limpiar_rastros("config.txt")
         limpiar_rastros("autoclicker.exe")
         self.master.destroy()
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.iconbitmap("test1.ico")
     app = AutoClickerApp(root)
     root.mainloop()
